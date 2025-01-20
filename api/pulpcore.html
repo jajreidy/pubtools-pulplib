@@ -1,19 +1,16 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>API: core &#8212; pubtools-pulplib  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=6625fa76" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=1fc5d657" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API: yum" href="yum.html" />
@@ -56,7 +53,7 @@ to <a class="reference internal" href="#pubtools.pulplib.PulpObject.from_data" t
 <p>Objects which are created via a client may be used to issue further requests
 to Pulp (for example, to update or delete the object).</p>
 <p>Pulp objects use <a class="reference external" href="http://www.attrs.org/en/stable/">attrs</a>.
-Attributes are immutable. Helper functions such as <code class="xref py py-func docutils literal notranslate"><span class="pre">attr.evolve()</span></code>
+Attributes are immutable. Helper functions such as <a class="reference external" href="https://www.attrs.org/en/stable/api-attr.html#attr.evolve" title="(in attrs v24.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">attr.evolve()</span></code></a>
 may be used to produce new instances.</p>
 <p>Attributes exposed on these Pulp objects include some generic attributes
 applicable to any Pulp installation, but also some custom attributes
@@ -73,7 +70,7 @@ matching <code class="docutils literal notranslate"><span class="pre">data</span
 with a repository object provided by Pulp’s API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A dict containing a raw representation of a Pulp object, as rendered
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – A dict containing a raw representation of a Pulp object, as rendered
 by Pulp’s API.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -119,7 +116,7 @@ this repository, e.g. <code class="docutils literal notranslate"><span class="pr
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pubtools.pulplib.Repository.created">
 <span class="sig-name descname"><span class="pre">created</span></span><a class="headerlink" href="#pubtools.pulplib.Repository.created" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> in UTC at which this repository was created,
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> in UTC at which this repository was created,
 or None if this information is unavailable.</p>
 </dd></dl>
 
@@ -244,6 +241,25 @@ of download service.</p>
 of download service.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 2.34.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pubtools.pulplib.Repository.provisioning">
+<span class="sig-name descname"><span class="pre">provisioning</span></span><a class="headerlink" href="#pubtools.pulplib.Repository.provisioning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flag indicating whether the repository is currently in process of creation
+and provisioning to other tools outside of Pulp.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.37.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pubtools.pulplib.Repository.importer">
+<span class="sig-name descname"><span class="pre">importer</span></span><a class="headerlink" href="#pubtools.pulplib.Repository.importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object of <a class="reference internal" href="#pubtools.pulplib.Importer" title="pubtools.pulplib.Importer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Importer</span></code></a> that is associated with the repository.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.39.0.</span></p>
 </div>
 </dd></dl>
 
@@ -434,17 +450,55 @@ during the sync operation.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pubtools.pulplib.Repository.lock">
+<span class="sig-name descname"><span class="pre">lock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pubtools/pulplib/_impl/model/repository/base.html#Repository.lock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pubtools.pulplib.Repository.lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain an exclusive advisory lock on this repository.</p>
+<p>Returns a context manager representing the lock, intended to be used
+via a <cite>with</cite> statement. When the context is entered, the caller will
+wait until the lock can be acquired (or raise an exception if the lock
+can’t be acquired).</p>
+<p>Only a single <a class="reference internal" href="client.html#pubtools.pulplib.Client" title="pubtools.pulplib.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> is able to hold the lock
+on a repository at any given time. The lock does not prevent modifications
+to the repo with the Pulp API, and does not affect other Pulp client
+implementations or instances of <a class="reference internal" href="client.html#pubtools.pulplib.Client" title="pubtools.pulplib.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a> not
+using the <cite>lock</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> – <p>A short description of the task being carried out with the lock.</p>
+<p>This value will be added to the lock in the repo and may be
+used for debugging.</p>
+</p></li>
+<li><p><strong>duration</strong> – <p>Maximum duration of the lock, in seconds.</p>
+<p>This value is used only if this client fails to release the
+lock (for example, because the current process is killed).
+In this case, the duration will be used by other clients in
+order to detect and release stale locks, avoiding a deadlock.</p>
+<p>There is no way to extend the duration of an acquired lock,
+so the caller should always ensure they request a <cite>duration</cite>
+high enough to cover the entire expected lifetime of the lock.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pubtools.pulplib.Repository.remove_content">
 <span class="sig-name descname"><span class="pre">remove_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">criteria</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pubtools/pulplib/_impl/model/repository/base.html#Repository.remove_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pubtools.pulplib.Repository.remove_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove all content of requested types from this repository.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>criteria</strong> (<a class="reference internal" href="searching.html#pubtools.pulplib.Criteria" title="pubtools.pulplib.Criteria"><code class="xref py py-class docutils literal notranslate"><span class="pre">Criteria</span></code></a>) – <p>A criteria object used to filter the contents for removal.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>criteria</strong> (<a class="reference internal" href="searching.html#pubtools.pulplib.Criteria" title="pubtools.pulplib.Criteria"><code class="xref py py-class docutils literal notranslate"><span class="pre">Criteria</span></code></a>) – <p>A criteria object used to filter the contents for removal.</p>
 <p>Type IDs must be included in the criteria with any other filters.
 If omitted, filter criteria will be ignored and all the content will
 be removed.
 If criteria is omitted, all the content will be removed.</p>
-</p>
+</p></li>
+<li><p><strong>limit</strong> (<em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Limit the maximum number of units that will be disassociated by
+pulp.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><dl>
@@ -505,7 +559,7 @@ relative to the Pulp content root.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pubtools.pulplib.Distributor.last_publish">
 <span class="sig-name descname"><span class="pre">last_publish</span></span><a class="headerlink" href="#pubtools.pulplib.Distributor.last_publish" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> at which this distributor was last published,
+<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a> at which this distributor was last published,
 if known.</p>
 </dd></dl>
 
@@ -669,6 +723,26 @@ types: <a class="reference internal" href="files.html#pubtools.pulplib.FileSyncO
 <dt class="sig sig-object py" id="pubtools.pulplib.SyncOptions.basic_auth_password">
 <span class="sig-name descname"><span class="pre">basic_auth_password</span></span><a class="headerlink" href="#pubtools.pulplib.SyncOptions.basic_auth_password" title="Permalink to this definition">¶</a></dt>
 <dd><p>Password to authenticate with source which supports basic authentication.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pubtools.pulplib.Importer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pubtools.pulplib.</span></span><span class="sig-name descname"><span class="pre">Importer</span></span><a class="reference internal" href="../_modules/pubtools/pulplib/_impl/model/repository/base.html#Importer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pubtools.pulplib.Importer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Importer is a pulp object that needs to be associated with repository
+in order to successfully sync or upload content to it.</p>
+<p>Method generated by attrs for class Importer.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pubtools.pulplib.Importer.type_id">
+<span class="sig-name descname"><span class="pre">type_id</span></span><a class="headerlink" href="#pubtools.pulplib.Importer.type_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type id of the importer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pubtools.pulplib.Importer.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#pubtools.pulplib.Importer.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration dictionary of the importer.</p>
 </dd></dl>
 
 </dd></dl>
@@ -869,8 +943,8 @@ by Pulp. These should at least contain a ‘type_id’ and a ‘unit_key’.</p>
       &copy;2019, Red Hat.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
       
       |
       <a href="../_sources/api/pulpcore.rst.txt"
